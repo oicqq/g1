@@ -3,8 +3,16 @@ import groq
 import os
 import json
 import time
+from dotenv import load_dotenv # type: ignore
 
-client = groq.Groq()
+# 加载 .env 文件中的环境变量
+load_dotenv()
+
+# 获取 API 密钥
+api_key = os.getenv("GROQ_API_KEY")
+
+# 将 API 密钥传递给 Groq 客户端
+client = groq.Groq(api_key=api_key)
 
 def make_api_call(messages, max_tokens, is_final_answer=False):
     for attempt in range(3):
